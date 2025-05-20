@@ -1,18 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User Menu</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>User Menu | FindMyPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #FFDEE9, #B5FFFC);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .menu-container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: fadeIn 1s ease;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: #444;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        .links {
+            margin-top: 25px;
+        }
+
+        .links a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, <span th:text="${user.name}">User</span></h1>
-    <h2>Select a Service Category</h2>
-    <form th:action="@{/user/services}" method="get">
-        <select name="category" required>
-            <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
-        </select>
-        <button type="submit">Find Professionals</button>
-    </form>
-    <a th:href="@{/user/profile}">Profile</a> | <a th:href="@{/logout}">Logout</a>
+    <div class="menu-container">
+        <h1>Welcome, <span th:text="${user.name}">User</span></h1>
+        <h2>Select a Service Category</h2>
+        <form th:action="@{/user/services}" method="get">
+            <select name="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
+            </select>
+            <button type="submit">Find Professionals</button>
+        </form>
+        <div class="links">
+            <a th:href="@{/user/profile}">Profile</a>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
 </body>
 </html>

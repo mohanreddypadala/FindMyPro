@@ -18,6 +18,10 @@ public class ServiceProvider {
     @JoinColumn(name = "area_id")
     private Area area;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     // Getters and setters
 
     public Long getId() {
@@ -58,5 +62,13 @@ public class ServiceProvider {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

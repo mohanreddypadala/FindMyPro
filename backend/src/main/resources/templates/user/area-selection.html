@@ -2,17 +2,101 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Select Area - FindMyPro</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .area-container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+            animation: slideIn 0.8s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #555;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Select Your Area</h2>
-    <form th:action="@{/user/select-area}" method="post">
-        <label for="area">Choose your area:</label>
-        <select id="area" name="areaId" required>
-            <option value="" disabled selected>Select an area</option>
-            <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.name}"></option>
-        </select>
-        <button type="submit">Continue</button>
-    </form>
+    <div class="area-container">
+        <h2>Select Your Area</h2>
+        <form th:action="@{/user/select-area}" method="post">
+            <label for="area">Choose your area:</label>
+            <select id="area" name="areaId" required>
+                <option value="" disabled selected>Select an area</option>
+                <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.name}"></option>
+            </select>
+            <button type="submit">Continue</button>
+        </form>
+    </div>
 </body>
 </html>

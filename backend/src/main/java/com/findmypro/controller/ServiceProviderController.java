@@ -1,8 +1,10 @@
 package com.findmypro.controller;
 
 import com.findmypro.model.Area;
+import com.findmypro.model.Category;
 import com.findmypro.model.ServiceProvider;
 import com.findmypro.repository.AreaRepository;
+import com.findmypro.repository.CategoryRepository;
 import com.findmypro.repository.ServiceProviderRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ServiceProviderController {
     @Autowired
     private AreaRepository areaRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     // Show registration page
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
@@ -32,22 +37,31 @@ public class ServiceProviderController {
     // Handle registration form submission
     @PostMapping("/register")
     public String registerProvider(@ModelAttribute("provider") ServiceProvider provider,
-                                   @RequestParam("place") String place) {
+                                   @RequestParam("place") String place,
+                                   @RequestParam("categoryName") String categoryName) {
+
         String trimmedPlace = place.trim();
+        String trimmedCategory = categoryName.trim();
 
-        // Find area by name (case insensitive)
+        // Find or create Area (place)
         Optional<Area> optionalArea = areaRepository.findByNameIgnoreCase(trimmedPlace);
-
         Area area = optionalArea.orElseGet(() -> {
             Area newArea = new Area();
             newArea.setName(trimmedPlace);
             return areaRepository.save(newArea);
         });
-
-        // Link the area with the service provider before saving
         provider.setArea(area);
 
-        // Save service provider with linked area
+        // Find or create Category (categoryName)
+        Optional<Category> optionalCategory = categoryRepository.findByNameIgnoreCase(trimmedCategory);
+        Category category = optionalCategory.orElseGet(() -> {
+            Category newCategory = new Category();
+            newCategory.setName(trimmedCategory);
+            return categoryRepository.save(newCategory);
+        });
+        provider.setCategory(category);
+
+        // Save service provider with linked area and category
         serviceProviderRepository.save(provider);
 
         // Redirect to login page after successful registration
@@ -87,11 +101,10 @@ public class ServiceProviderController {
             return "redirect:/provider/login";
         }
 
-           Optional<ServiceProvider> optionalProvider = serviceProviderRepository.findById(provider.getId());
-    if (optionalProvider.isEmpty()) {
-        return "redirect:/provider/login";
-    }
-
+        Optional<ServiceProvider> optionalProvider = serviceProviderRepository.findById(provider.getId());
+        if (optionalProvider.isEmpty()) {
+            return "redirect:/provider/login";
+        }
 
         // Pass provider data to dashboard view
         model.addAttribute("provider", provider);

@@ -1,37 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Service Provider Registration</title>
+    <title>Service Provider Registration | FindMyPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <style>
-        /* ... your existing styles ... */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .register-container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 420px;
+            animation: fadeInScale 0.8s ease forwards;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 1.7rem;
+        }
+        form label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #444;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 12px;
+            margin-bottom: 22px;
+            border: 1.8px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: #66a6ff;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #66a6ff;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #5590e0;
+            transform: scale(1.05);
+        }
+        .login-link {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .login-link a {
+            color: #66a6ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: text-decoration 0.3s ease;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="register-container">
+        <h2>Register as a Service Provider</h2>
+        <form th:action="@{/provider/register}" th:object="${provider}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required />
 
-<h2 style="text-align:center;">Register as a Service Provider</h2>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
 
-<form th:action="@{/provider/register}" th:object="${provider}" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required/>
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Enter password" required />
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required/>
+            <label for="place">Place:</label>
+            <input type="text" id="place" name="place" placeholder="Your location" required />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" th:field="*{password}" placeholder="Enter password" required/>
+            <label for="categoryName">Category:</label>
+<input type="text" id="categoryName" name="categoryName" placeholder="Enter your category" required />
 
-    <!-- Remove category since it doesn't exist in your entity -->
-    <!-- If you want category, add it to entity and controller -->
 
-    <label for="place">Place:</label>
-    <input type="text" id="place" name="place" placeholder="Your location" required/>
-
-    <button type="submit">Register</button>
-</form>
-
-<div class="login-link">
-    <p>Already registered? <a th:href="@{/provider/login}">Login here</a></p>
-</div>
-
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            <p>Already registered? <a th:href="@{/provider/login}">Login here</a></p>
+        </div>
+    </div>
 </body>
 </html>
