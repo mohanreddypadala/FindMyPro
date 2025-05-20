@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service Provider Registration</title>
+    <style>
+        /* ... your existing styles ... */
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Register as a Service Provider</h2>
+
+<form th:action="@{/provider/register}" th:object="${provider}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required/>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required/>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" th:field="*{password}" placeholder="Enter password" required/>
+
+    <!-- Remove category since it doesn't exist in your entity -->
+    <!-- If you want category, add it to entity and controller -->
+
+    <label for="place">Place:</label>
+    <input type="text" id="place" name="place" placeholder="Your location" required/>
+
+    <button type="submit">Register</button>
+</form>
+
+<div class="login-link">
+    <p>Already registered? <a th:href="@{/provider/login}">Login here</a></p>
+</div>
+
+</body>
+</html>

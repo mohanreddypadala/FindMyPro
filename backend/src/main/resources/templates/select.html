@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Select Role</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h2>Who are you?</h2>
+        <a th:href="@{/user/login}" class="btn">I'm a User</a>
+        <a th:href="@{/provider/login}" class="btn">I'm a Service Provider</a>
+    </div>
+</body>
+</html>

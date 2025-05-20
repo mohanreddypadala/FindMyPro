@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Select Area - FindMyPro</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h2>Select Your Area</h2>
+    <form th:action="@{/user/select-area}" method="post">
+        <label for="area">Choose your area:</label>
+        <select id="area" name="areaId" required>
+            <option value="" disabled selected>Select an area</option>
+            <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.name}"></option>
+        </select>
+        <button type="submit">Continue</button>
+    </form>
+</body>
+</html>

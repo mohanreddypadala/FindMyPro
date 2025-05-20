@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h2>Your Profile</h2>
+    <form th:action="@{/user/update}" method="post">
+        <input type="text" name="name" th:value="${user.name}">
+        <input type="email" name="email" th:value="${user.email}">
+        <button type="submit">Update</button>
+    </form>
+    <a th:href="@{/logout}">Logout</a>
+</body>
+</html>

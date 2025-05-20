@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Provider Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 0; padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .info {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+        .logout-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .logout-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome, <span th:text="${provider.name}">Provider Name</span></h2>
+        <div class="info"><strong>Email:</strong> <span th:text="${provider.email}">provider@example.com</span></div>
+        <div class="info"><strong>Location:</strong> <span th:text="${provider.area.name}">Area Name</span></div>
+
+        <a th:href="@{/provider/logout}" class="logout-btn">Logout</a>
+    </div>
+</body>
+</html>

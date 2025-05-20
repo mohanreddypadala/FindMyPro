@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service Provider Login</title>
+</head>
+<body>
+    <form th:action="@{/provider/login}" method="post">
+        <h2>Provider Login</h2>
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+        <p><a th:href="@{/provider/register}">New provider? Register</a></p>
+    </form>
+</body>
+</html>

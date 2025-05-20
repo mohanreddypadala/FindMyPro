@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Provider Profile</title>
+</head>
+<body>
+    <h2>Edit Service Details</h2>
+    <form th:action="@{/provider/update}" method="post">
+        <input type="hidden" th:value="${provider.id}" name="id"/>
+        <label>Service Name: <input type="text" name="name" th:value="${provider.name}"/></label><br/>
+        <label>Category:
+            <select name="category" th:value="${provider.category}">
+                <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
+            </select>
+        </label><br/>
+        <label>Price: <input type="number" name="price" th:value="${provider.price}"/></label><br/>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
