@@ -44,7 +44,10 @@
         <div class="info"><strong>Email:</strong> <span th:text="${provider.email}">provider@example.com</span></div>
         <div class="info"><strong>Location:</strong> <span th:text="${provider.area.name}">Area Name</span></div>
 
-        <a th:href="@{/provider/logout}" class="logout-btn">Logout</a>
+        <!-- Proper logout using POST and redirect handled by Spring Security -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
     </div>
 </body>
 </html>

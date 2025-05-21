@@ -1,24 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Professionals</title>
+    <title>Available Professionals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #FFDEE9, #B5FFFC);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .menu-container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1s ease;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .professional {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .professional h3 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .professional p {
+            margin: 6px 0;
+            color: #444;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #888;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .logout-button {
+            background: none;
+            border: none;
+            color: #007bff;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+        }
+
+        .logout-button:hover {
+            color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Available Professionals</h2>
+    <div class="menu-container">
+        <h2>Available Professionals</h2>
 
-    <div th:if="${providers.size() == 0}">
-        <p>No professionals found in this category and city.</p>
+        <div th:if="${providers.size() == 0}" class="no-results">
+            <p>No professionals found in this category and city.</p>
+        </div>
+
+        <div th:each="provider : ${providers}" class="professional">
+            <h3 th:text="${provider.name}">Provider Name</h3>
+            <p>Email: <span th:text="${provider.email}"></span></p>
+            <p>Phone: <span th:text="${provider.phone}"></span></p>
+            <p>City: <span th:text="${provider.area.name}"></span></p>
+            <p>Category: <span th:text="${provider.category.name}"></span></p>
+        </div>
+
+        <div class="links">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
     </div>
-
-    <div th:each="provider : ${providers}">
-        <h3 th:text="${provider.name}">Provider Name</h3>
-        <p>Email: <span th:text="${provider.email}"></span></p>
-        <p>Phone: <span th:text="${provider.phone}"></span></p>
-        <p>City: <span th:text="${provider.area.name}"></span></p>
-        <p>Category: <span th:text="${provider.category.name}"></span></p>
-        <hr/>
-    </div>
-
-    <a th:href="@{/user/dashboard}">Back to Dashboard</a>
 </body>
 </html>

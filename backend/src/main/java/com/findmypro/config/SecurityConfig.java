@@ -13,8 +13,15 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").permitAll()
+                .requestMatchers("/**").permitAll() // Allow all requests
                 .anyRequest().authenticated()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")                  // default logout URL
+                .logoutSuccessUrl("/select")           // redirect here after logout
+                .invalidateHttpSession(true)           // clear session
+                .clearAuthentication(true)
+                .permitAll()
             );
 
         return http.build();
