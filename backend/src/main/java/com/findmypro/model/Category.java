@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "categories")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,10 +16,9 @@ public class Category {
     @JoinColumn(name = "area_id")
     private Area area;
 
-    // Constructors
     public Category() {}
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

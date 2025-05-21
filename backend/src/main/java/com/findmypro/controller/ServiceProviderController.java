@@ -27,23 +27,22 @@ public class ServiceProviderController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Show registration page
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("provider", new ServiceProvider());
-        return "serviceprovider/provider-register";  // Make sure template path is correct
+        return "serviceprovider/provider-register";
     }
 
-    // Handle registration form submission
     @PostMapping("/register")
     public String registerProvider(@ModelAttribute("provider") ServiceProvider provider,
                                    @RequestParam("place") String place,
-                                   @RequestParam("categoryName") String categoryName) {
+                                   @RequestParam("categoryName") String categoryName,
+                                   @RequestParam("phone") String phone) {
 
         String trimmedPlace = place.trim();
         String trimmedCategory = categoryName.trim();
 
-        // Find or create Area (place)
+        // Find or create area
         Optional<Area> optionalArea = areaRepository.findByNameIgnoreCase(trimmedPlace);
         Area area = optionalArea.orElseGet(() -> {
             Area newArea = new Area();
@@ -52,52 +51,49 @@ public class ServiceProviderController {
         });
         provider.setArea(area);
 
-        // Find or create Category (categoryName)
-        Optional<Category> optionalCategory = categoryRepository.findByNameIgnoreCase(trimmedCategory);
+        // Find or create category with area
+        Optional<Category> optionalCategory =
+                categoryRepository.findByNameIgnoreCaseAndAreaId(trimmedCategory, area.getId());
+
         Category category = optionalCategory.orElseGet(() -> {
             Category newCategory = new Category();
             newCategory.setName(trimmedCategory);
+            newCategory.setArea(area);
             return categoryRepository.save(newCategory);
         });
-        provider.setCategory(category);
 
-        // Save service provider with linked area and category
+        provider.setCategory(category);
+        provider.setPhone(phone);
+
         serviceProviderRepository.save(provider);
 
-        // Redirect to login page after successful registration
         return "redirect:/provider/login";
     }
 
-    // Show login page
     @GetMapping("/login")
     public String showLoginPage() {
-        return "serviceprovider/provider-login";  // Make sure this template exists
+        return "serviceprovider/provider-login";
     }
 
-    // Handle login form submission
     @PostMapping("/login")
     public String loginProvider(@RequestParam String email,
                                 @RequestParam String password,
                                 HttpSession session) {
-        ServiceProvider provider = serviceProviderRepository.findByEmailAndPassword(email, password);
 
+        ServiceProvider provider = serviceProviderRepository.findByEmailAndPassword(email, password);
         if (provider != null) {
-            // Store logged in provider in session
             session.setAttribute("loggedInProvider", provider);
             return "redirect:/provider/dashboard";
         } else {
-            // Login failed, redirect back with error flag
             return "redirect:/provider/login?error";
         }
     }
 
-    // Provider dashboard page - requires login session
     @GetMapping("/dashboard")
     public String showDashboard(HttpSession session, Model model) {
         ServiceProvider provider = (ServiceProvider) session.getAttribute("loggedInProvider");
 
         if (provider == null) {
-            // If not logged in, redirect to login page
             return "redirect:/provider/login";
         }
 
@@ -106,7 +102,6 @@ public class ServiceProviderController {
             return "redirect:/provider/login";
         }
 
-        // Pass provider data to dashboard view
         model.addAttribute("provider", provider);
         return "serviceprovider/dashboard";
     }
