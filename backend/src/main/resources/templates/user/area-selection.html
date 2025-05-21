@@ -89,14 +89,16 @@
 <body>
     <div class="area-container">
         <h2>Select Your Area</h2>
-        <form th:action="@{/user/select-area}" method="post">
-            <label for="area">Choose your area:</label>
-            <select id="area" name="areaId" required>
-                <option value="" disabled selected>Select an area</option>
-                <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.name}"></option>
-            </select>
-            <button type="submit">Continue</button>
-        </form>
+     <form th:action="@{/user/select-area}" method="post">
+    <select name="areaId" required>
+        <option value="" disabled selected>Select your area</option>
+        <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.name}"></option>
+    </select>
+    <button type="submit">Continue</button>
+</form>
+
+
+
     </div>
 </body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Professionals</title>
+</head>
+<body>
+    <h2>Available Professionals</h2>
+
+    <div th:if="${providers.size() == 0}">
+        <p>No professionals found in this category and city.</p>
+    </div>
+
+    <div th:each="provider : ${providers}">
+        <h3 th:text="${provider.name}">Provider Name</h3>
+        <p>Email: <span th:text="${provider.email}"></span></p>
+        <p>Phone: <span th:text="${provider.phone}"></span></p>
+        <p>City: <span th:text="${provider.area.name}"></span></p>
+        <p>Category: <span th:text="${provider.category.name}"></span></p>
+        <hr/>
+    </div>
+
+    <a th:href="@{/user/dashboard}">Back to Dashboard</a>
+</body>
+</html>

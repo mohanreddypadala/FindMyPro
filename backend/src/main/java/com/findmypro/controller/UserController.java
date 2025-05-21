@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -71,21 +72,33 @@ public class UserController {
     }
 
     @GetMapping("/menu")
-    public String showMenuPage(Model model, HttpSession session) {
-        Long areaId = (Long) session.getAttribute("selectedArea");
-        User user = (User) session.getAttribute("loggedInUser");
+public String showMenuPage(Model model, HttpSession session) {
+    Long areaId = (Long) session.getAttribute("selectedArea");
+    User user = (User) session.getAttribute("loggedInUser");
 
-        if (areaId == null || user == null) {
-            return "redirect:/user/login";
-        }
-
-        model.addAttribute("user", user);
-
-        List<Category> categories = categoryRepository.findByAreaId(areaId);
-        model.addAttribute("categories", categories);
-
-        return "user/menu";
+    if (areaId == null || user == null) {
+        return "redirect:/user/login";
     }
+
+    model.addAttribute("user", user);
+
+    // Fetch the Area entity to get the name for display
+    Area area = areaRepository.findById(areaId).orElse(null);
+    if (area == null) {
+        // fallback if area not found
+        model.addAttribute("cityName", "Unknown Area");
+        model.addAttribute("cityId", 0);
+    } else {
+        model.addAttribute("cityName", area.getName());  // For display
+        model.addAttribute("cityId", area.getId());      // For hidden input
+    }
+
+    List<Category> categories = categoryRepository.findByAreaId(areaId);
+    model.addAttribute("categories", categories);
+
+    return "user/menu";
+}
+
 
     @GetMapping("/profile")
     public String showProfilePage(HttpSession session, Model model) {
@@ -109,4 +122,18 @@ public class UserController {
         session.setAttribute("loggedInUser", user);
         return "redirect:/user/profile";
     }
+   @GetMapping("/user/menu")
+public String showUserMenu(@RequestParam("city") Long city, Model model, Principal principal) {
+    System.out.println("City from selection: " + city);
+
+    User user = userRepository.findByEmail(principal.getName());
+    model.addAttribute("user", user);
+    model.addAttribute("city", city); // <- very important
+    model.addAttribute("categories", categoryRepository.findAll());
+   
+
+    return "user/menu";
+}
+
+
 }

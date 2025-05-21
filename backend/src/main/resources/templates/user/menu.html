@@ -105,13 +105,17 @@
     <div class="menu-container">
         <h1>Welcome, <span th:text="${user.name}">User</span></h1>
         <h2>Select a Service Category</h2>
-        <form th:action="@{/user/services}" method="get">
-            <select name="category" required>
-                <option value="" disabled selected>Select a category</option>
-                <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
-            </select>
-            <button type="submit">Find Professionals</button>
-        </form>
+        <p th:if="${cityName}">Searching professionals in <strong th:text="${cityName}"></strong></p>
+
+<form th:action="@{/search/professionals}" method="get">
+    <input type="hidden" name="city" th:value="${cityId}" />
+    <select name="category" required>
+        <option value="" disabled selected>Select a category</option>
+        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+    </select>
+    <button type="submit">Find Professionals</button>
+</form>
+
         <div class="links">
             <a th:href="@{/user/profile}">Profile</a>
             <a th:href="@{/logout}">Logout</a>

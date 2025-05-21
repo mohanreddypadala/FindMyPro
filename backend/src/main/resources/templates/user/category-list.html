@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>FindMyPro - Categories</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <h2>Find Professionals by Category</h2>
+
+    <form method="get" action="">
+        <label for="city">Enter Your City:</label>
+        <input type="text" name="city" id="city" required th:value="${city}">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr/>
+
+    <div th:if="${categories != null}">
+        <ul>
+            <li th:each="category : ${categories}">
+                <span th:text="${category.name}">Category Name</span>
+
+                <!-- Replace 'Hyderabad' with dynamic city input -->
+                <a th:href="@{'/category/' + ${category.id} + '/professionals?city=' + ${city}}">
+                    <button>Find Professionals</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div th:if="${categories == null or #lists.isEmpty(categories)}">
+        <p>No categories found.</p>
+    </div>
+
+</body>
+</html>
