@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>About Us | FindMyPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0066ff;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav a {
+            margin-left: 30px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #0066ff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #0066ff;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .about-container {
+            flex: 1;
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: white;
+            padding: 60px 5%;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-content {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #0066ff;
+            margin-bottom: 25px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #0066ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h3 i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+
+        .team-section {
+            margin-top: 60px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 5px solid #f0f7ff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .member-info p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 5% 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #74ebd5;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            transition: color 0.3s ease;
+            color: #ddd;
+        }
+
+        .footer-column ul li a:hover {
+            color: #74ebd5;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                padding: 30px;
+            }
+            
+            nav a {
+                margin-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-hands-helping"></i>
+            <span>FindMyPro</span>
+        </div>
+        <nav>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/about}">About</a>
+            <a th:href="@{/contact}">Contact</a>
+            <a th:href="@{/login}">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="about-container">
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="about-hero-content">
+                <h1>Our Story</h1>
+                <p>Connecting people with trusted professionals since 2025</p>
+            </div>
+        </section>
+
+        <!-- About Content -->
+        <section class="about-content">
+            <h2><i class="fas fa-lightbulb"></i> Who We Are</h2>
+            <p>FindMyPro was founded in 2025 with a simple mission: to make finding reliable service professionals quick, easy, and stress-free. We understand how frustrating it can be to search for qualified electricians, plumbers, or mechanics when you need them most.</p>
+            <p>Our platform bridges the gap between skilled professionals and customers who need their services, creating a seamless connection that benefits both parties.</p>
+            
+            <div class="mission-vision">
+                <div class="card">
+                    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                    <p>To revolutionize how people find and connect with local service professionals through technology that saves time, reduces stress, and ensures quality.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                    <p>To become the most trusted platform for professional services worldwide, known for our reliability, transparency, and exceptional user experience.</p>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-cogs"></i> How We Work</h2>
+            <p>FindMyPro uses a sophisticated matching algorithm to connect users with the most suitable professionals in their area. Our verification process ensures all service providers meet our high standards for quality and professionalism.</p>
+            <p>For professionals, we provide tools to manage their business, connect with customers, and grow their reputation through verified reviews.</p>
+            
+            <section class="team-section">
+                <h2><i class="fas fa-users"></i> Meet Our Team</h2>
+                <p>The passionate people behind FindMyPro who work every day to improve your experience.</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Alex Johnson</h4>
+                            <p>Founder & CEO</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Sarah Miller</h4>
+                            <p>Head of Product</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>David Chen</h4>
+                            <p>Lead Developer</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Maria Garcia</h4>
+                            <p>Customer Success</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>FindMyPro</h3>
+                <p>Connecting you with trusted professionals in your area for all your service needs.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a th:href="@{/about}">About Us</a></li>
+                    <li><a th:href="@{/contact}">Contact</a></li>
+                    <li><a th:href="@{/login}">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a th:href="@{/terms}">Terms of Service</a></li>
+                    <li><a th:href="@{/privacy}">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> support@findmypro.com</li>
+                    <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Service St, Pro City</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 FindMyPro. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

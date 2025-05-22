@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Service Categories | FindMyPro</title>
+    <title>Terms & Conditions | FindMyPro</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -75,135 +75,56 @@
         }
 
         /* Main Content */
-        .categories-container {
+        .terms-container {
             flex: 1;
             padding: 60px 5%;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             width: 100%;
         }
 
-        .page-title {
+        .terms-content {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        h1 {
             font-size: 2.5rem;
             color: #0066ff;
             margin-bottom: 30px;
             text-align: center;
         }
 
-        .city-search-form {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+        p {
+            margin-bottom: 15px;
             color: #555;
         }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 14px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+        ul {
+            margin: 15px 0 25px 30px;
         }
 
-        input[type="text"]:focus {
-            border-color: #0066ff;
-            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
-            outline: none;
+        li {
+            margin-bottom: 10px;
         }
 
-        .search-btn {
-            background: linear-gradient(135deg, #0066ff, #004fc1);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .search-btn:hover {
-            background: linear-gradient(135deg, #004fc1, #003d9e);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .category-img {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .category-info {
-            padding: 25px;
-        }
-
-        .category-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #0066ff;
-        }
-
-        .find-pros-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #0066ff, #004fc1);
-            color: white;
-            padding: 10px 20px;
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 20px;
             border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .find-pros-btn:hover {
-            background: linear-gradient(135deg, #004fc1, #003d9e);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .no-categories {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin: 25px 0;
+            border-left: 4px solid #0066ff;
         }
 
         /* Footer */
@@ -267,26 +188,20 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .page-title {
+            .terms-content {
+                padding: 30px;
+            }
+            
+            h1 {
                 font-size: 2rem;
             }
             
-            .categories-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            h2 {
+                font-size: 1.3rem;
             }
             
             nav a {
                 margin-left: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-            
-            .city-search-form {
-                padding: 25px 20px;
             }
         }
     </style>
@@ -308,39 +223,50 @@
     </header>
 
     <!-- Main Content -->
-    <main class="categories-container">
-        <h1 class="page-title"><i class="fas fa-list-alt"></i> Service Categories</h1>
-        
-        <div class="city-search-form">
-            <form method="get" action="">
-                <div class="form-group">
-                    <label for="city">Enter Your City</label>
-                    <input type="text" name="city" id="city" required th:value="${city}" placeholder="e.g. Hyderabad, Bangalore, Delhi">
-                </div>
-                <button type="submit" class="search-btn">
-                    <i class="fas fa-search"></i> Search Categories
-                </button>
-            </form>
-        </div>
-        
-        <div th:if="${categories != null and !#lists.isEmpty(categories)}">
-            <div class="categories-grid">
-                <div class="category-card" th:each="category : ${categories}">
-                    <div class="category-img" th:style="'background-image: url(' + ${category.imageUrl} + ');'" style="background-image: url('https://images.unsplash.com/photo-1581093450021-4a7360e9a7d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-                    </div>
-                    <div class="category-info">
-                        <h3 th:text="${category.name}">Electricians</h3>
-                        <a th:href="@{'/category/' + ${category.id} + '/professionals?city=' + ${city}}" class="find-pros-btn">
-                            Find Professionals <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+    <main class="terms-container">
+        <div class="terms-content">
+            <h1><i class="fas fa-file-contract"></i> Terms & Conditions</h1>
+            
+            <div class="highlight">
+                <p>Last Updated: June 2025 | By using FindMyPro, you agree to these terms of service.</p>
             </div>
-        </div>
-        
-        <div th:if="${categories == null or #lists.isEmpty(categories)}" class="no-categories">
-            <h3><i class="fas fa-info-circle"></i> No categories found</h3>
-            <p>We couldn't find any service categories for your search. Please try a different city.</p>
+            
+            <h2>1. User Responsibilities</h2>
+            <p>All users of FindMyPro agree to:</p>
+            <ul>
+                <li>Provide accurate and complete information when creating an account</li>
+                <li>Use the platform only for lawful purposes</li>
+                <li>Not engage in fraudulent activities or misrepresentations</li>
+                <li>Respect the privacy and rights of service providers</li>
+            </ul>
+            
+            <h2>2. Service Provider Requirements</h2>
+            <p>Professionals offering services through FindMyPro must:</p>
+            <ul>
+                <li>Possess valid qualifications for services they offer</li>
+                <li>Provide truthful information about skills, experience, and pricing</li>
+                <li>Maintain professional conduct with all users</li>
+                <li>Comply with all applicable local laws and regulations</li>
+            </ul>
+            
+            <h2>3. Platform Limitations</h2>
+            <p>FindMyPro serves as a connection platform only:</p>
+            <ul>
+                <li>We do not employ or endorse any specific service providers</li>
+                <li>We are not responsible for the quality of services rendered</li>
+                <li>All agreements are between users and service providers</li>
+            </ul>
+            
+            <h2>4. Account Management</h2>
+            <p>FindMyPro reserves the right to:</p>
+            <ul>
+                <li>Suspend or terminate accounts violating these terms</li>
+                <li>Remove inappropriate content without notice</li>
+                <li>Modify or discontinue services at any time</li>
+            </ul>
+            
+            <h2>5. Changes to Terms</h2>
+            <p>We may update these terms periodically. Continued use of FindMyPro after changes constitutes acceptance of the new terms.</p>
         </div>
     </main>
 
